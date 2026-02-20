@@ -3,11 +3,10 @@ kind: Ingress
 metadata:
   name: healthcare-ingress
   annotations:
-    kubernetes.io/ingress.class: alb
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
-
 spec:
+  ingressClassName: alb   # ✅ ADD THIS LINE
   rules:
     - http:
         paths:
@@ -26,3 +25,32 @@ spec:
                 name: appointment-service
                 port:
                   number: 80
+
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: healthcare-ingress
+#   annotations:
+#     kubernetes.io/ingress.class: alb
+#     alb.ingress.kubernetes.io/scheme: internet-facing
+#     alb.ingress.kubernetes.io/target-type: ip
+
+# spec:
+#   rules:
+#     - http:
+#         paths:
+#           - path: /patient
+#             pathType: Prefix
+#             backend:
+#               service:
+#                 name: patient-service
+#                 port:
+#                   number: 80
+
+#           - path: /appointment
+#             pathType: Prefix
+#             backend:
+#               service:
+#                 name: appointment-service
+#                 port:
+#                   number: 80
