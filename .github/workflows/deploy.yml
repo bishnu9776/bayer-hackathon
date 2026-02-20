@@ -46,7 +46,7 @@ jobs:
           IMAGE_TAG: latest   # or use ${{ github.sha }}
         run: |
           echo "Building Docker image..."
-          docker build -t $IMAGE_NAME ./paitent-service
+          docker build -t $IMAGE_NAME ./paitent-service .
 
           echo "Tagging image for ECR..."
           docker tag $IMAGE_NAME:$IMAGE_TAG $ECR_REGISTRY/$IMAGE_NAME:$IMAGE_TAG
