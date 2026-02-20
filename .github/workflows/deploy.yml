@@ -32,18 +32,18 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v2
 
 
-      - name: Build & Push Patient Service
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          IMAGE_TAG: ${{ github.sha }}
-        run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY_PATIENT:$IMAGE_TAG ./patient-service
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY_PATIENT:$IMAGE_TAG
+      # - name: Build & Push Patient Service
+      #   env:
+      #     ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+      #     IMAGE_TAG: ${{ github.sha }}
+      #   run: |
+      #     docker build -t $ECR_REGISTRY/$ECR_REPOSITORY_PATIENT:$IMAGE_TAG ./patient-service
+      #     docker push $ECR_REGISTRY/$ECR_REPOSITORY_PATIENT:$IMAGE_TAG
 
       - name: Build, Tag and Push Image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          IMAGE_NAME: hack/team4
+          IMAGE_NAME: hack/patient-service
           IMAGE_TAG: latest   # or use ${{ github.sha }}
         run: |
           echo "Building Docker image...patient-service"
@@ -65,7 +65,7 @@ jobs:
           docker build -t $IMAGE_NAME ./appointment-service
 
           echo "Tagging image for ECR..."
-          docker tag $IMAGE_NAME:$IMAGE_TAG $ECR_REGISTRY/$IMAGE_NAME:appointment-service
+          docker tag $IMAGE_NAME:$IMAGE_TAG $ECR_REGISTRY/$IMAGE_NAME:IMAGE_TAG
 
           echo "Pushing image to ECR..."
-          docker push $ECR_REGISTRY/$IMAGE_NAME:appointment-service
+          docker push $ECR_REGISTRY/$IMAGE_NAME:IMAGE_TAG
