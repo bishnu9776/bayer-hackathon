@@ -31,28 +31,28 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
-      # ✅ Build Patient Service
-      # - name: Build & Push Patient Service
-      #   env:
-      #     ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-      #     IMAGE_TAG: ${{ github.sha }}
-      #   run: |
-      #     docker build -t $ECR_REGISTRY/$ECR_REPOSITORY_PATIENT:$IMAGE_TAG ./patient-service
-      #     docker push $ECR_REGISTRY/$ECR_REPOSITORY_PATIENT:$IMAGE_TAG
-      # - name: Build, Tag and Push Image
-      #   env:
-      #     ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-      #     IMAGE_NAME: hack/team4
-      #     IMAGE_TAG: latest   # or use ${{ github.sha }}
-      #   run: |
-      #     echo "Building Docker image...patient-service"
-      #     docker build -t $IMAGE_NAME ./patient-service
 
-      #     echo "Tagging image for ECR..."
-      #     docker tag $IMAGE_NAME:$IMAGE_TAG $ECR_REGISTRY/$IMAGE_NAME:patient-service
+      - name: Build & Push Patient Service
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY_PATIENT:$IMAGE_TAG ./patient-service
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY_PATIENT:$IMAGE_TAG
+      - name: Build, Tag and Push Image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_NAME: hack/team4
+          IMAGE_TAG: latest   # or use ${{ github.sha }}
+        run: |
+          echo "Building Docker image...patient-service"
+          docker build -t $IMAGE_NAME ./patient-service
 
-      #     echo "Pushing image to ECR..."
-      #     docker push $ECR_REGISTRY/$IMAGE_NAME:patient-service
+          echo "Tagging image for ECR..."
+          docker tag $IMAGE_NAME:$IMAGE_TAG $ECR_REGISTRY/$IMAGE_NAME:patient-service
+
+          echo "Pushing image to ECR..."
+          docker push $ECR_REGISTRY/$IMAGE_NAME:patient-service
 
       - name: Build, Tag and Push Image for appointment
         env:
