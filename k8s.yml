@@ -34,19 +34,6 @@ spec:
       targetPort: 8080
 
 ---
-apiVersion: v1
-kind: Service
-metadata:
-  name: patient-service
-spec:
-  type: LoadBalancer
-  selector:
-    app: patient
-  ports:
-    - port: 80
-      targetPort: 8080
-
----
 #Appointment Service
 
 ---
