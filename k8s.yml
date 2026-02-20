@@ -1,0 +1,84 @@
+#Patient Service
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: patient-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: patient
+  template:
+    metadata:
+      labels:
+        app: patient
+    spec:
+      containers:
+      - name: patient-container
+        image: IMAGE_PATIENT
+        ports:
+        - containerPort: 8080
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: patient-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: patient
+  ports:
+    - port: 80
+      targetPort: 8080
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: patient-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: patient
+  ports:
+    - port: 80
+      targetPort: 8080
+
+---
+#Appointment Service
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appointment-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: appointment
+  template:
+    metadata:
+      labels:
+        app: appointment
+    spec:
+      containers:
+      - name: appointment-container
+        image: IMAGE_APPOINTMENT
+        ports:
+        - containerPort: 8081
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: appointment-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: appointment
+  ports:
+    - port: 80
+      targetPort: 8081
