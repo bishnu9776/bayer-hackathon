@@ -26,7 +26,7 @@ kind: Service
 metadata:
   name: patient-service
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: patient
   ports:
@@ -63,7 +63,7 @@ kind: Service
 metadata:
   name: appointment-service
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: appointment
   ports:

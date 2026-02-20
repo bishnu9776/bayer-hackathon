@@ -90,6 +90,7 @@ jobs:
           sed -i "s|IMAGE_APPOINTMENT|$ECR_REGISTRY/hack/team4:$IMAGE_TAG|g" k8s.yaml
 
           kubectl apply -f k8s.yaml
+          kubectl apply -f ingress.yaml
 
       # - name: Build, Tag and Push Image
       #   env:
